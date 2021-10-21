@@ -2,24 +2,20 @@ package org.springframework.samples.petclinic.sfg;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@ActiveProfiles("inner-class")
-@SpringJUnitConfig(classes = {HearingInterpreterInnerTest.TestConfig.class})
-public class HearingInterpreterInnerTest {
-    @Profile("inner-class")
+@ActiveProfiles("yanny")
+@SpringJUnitConfig(classes = {HearingInterpreterActiveProfileTest.TestConfig.class})
+public class HearingInterpreterActiveProfileTest {
     @Configuration
+    @ComponentScan("org.springframework.samples.petclinic.sfg")
     static class TestConfig {
-        @Bean
-        HearingInterpreter hearingInterpreter() {
-            return new HearingInterpreter(new LaurelWordProducer());
-        }
+
     }
 
     @Autowired
@@ -28,7 +24,6 @@ public class HearingInterpreterInnerTest {
     @Test
     void testWhatIHeard() {
         String word = hearingInterpreter.whatIHeard();
-
-        assertEquals("Laurel", word);
+        assertEquals("Yanny", word);
     }
 }
